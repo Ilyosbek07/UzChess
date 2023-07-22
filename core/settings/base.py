@@ -16,6 +16,7 @@ import environ
 
 from core.jazzmin_conf import *  # noqa
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -46,13 +47,19 @@ DJANGO_APPS = [
 ]
 
 CUSTOM_APPS = [
+    "apps.cart",
     "apps.common",
+    "apps.course",
+    "apps.main",
 ]
 
 THIRD_PARTY_APPS = [
     "rest_framework",
     "drf_yasg",
     "corsheaders",
+    'location_field.apps.DefaultConfig',
+    "phonenumber_field",
+
 ]
 
 REST_FRAMEWORK = {
@@ -176,3 +183,12 @@ CELERY_TIMEZONE = "Asia/Tashkent"
 
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
+
+CKEDITOR_BASEPATH = "/my_static/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
+CKEDITOR_CONFIGS = {
+    'awesome_ckeditor': {
+        'toolbar': 'Basic',
+    },
+}

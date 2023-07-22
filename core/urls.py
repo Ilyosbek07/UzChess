@@ -1,3 +1,5 @@
+from xml.etree.ElementInclude import include
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -7,6 +9,8 @@ from .schema import swagger_urlpatterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+
 ]
 
 urlpatterns += swagger_urlpatterns
