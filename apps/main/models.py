@@ -1,7 +1,5 @@
 from django.db import models
-from location_field.models.plain import PlainLocationField
 from ckeditor.fields import RichTextField
-from phonenumber_field.modelfields import PhoneNumberField
 
 from apps.common.models import BaseModel
 

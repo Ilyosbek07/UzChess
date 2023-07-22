@@ -49,7 +49,7 @@ DJANGO_APPS = [
 CUSTOM_APPS = [
     "apps.cart",
     "apps.common",
-    "apps.course",
+    "apps.training",
     "apps.main",
 ]
 

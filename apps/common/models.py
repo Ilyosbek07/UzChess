@@ -1,7 +1,9 @@
 from django.db import models
-from location_field.models.plain import PlainLocationField
+# from location_field.models.plain import PlainLocationField
 from ckeditor.fields import RichTextField
 from phonenumber_field.modelfields import PhoneNumberField
+
+from apps.training.models import Course
 
 
 class BaseModel(models.Model):
@@ -20,27 +22,28 @@ class Region(BaseModel):
 
 
 class Contact(models.Model):
-    full_name = models.CharField(max_length=255)
-    phone = models.PhoneNumberField(region="UZ")
+    name = models.CharField(max_length=255)
+    phone = PhoneNumberField(region="UZ")
 
     message = models.TextField()
 
     def __str__(self):
-        return self.full_name
+        return self.name
 
 
 class AboutUs(models.Model):
-    full_name = models.CharField(max_length=255)
-    phone = models.PhoneNumberField(region="UZ")
+    name = models.CharField(max_length=255)
+    phone = PhoneNumberField(region="UZ")
     near_subway = models.CharField(max_length=125)
-    location = PlainLocationField(based_fields=['full_name'], zoom=7)
+
+    # location = PlainLocationField(based_fields=['full_name'], zoom=7)
 
     def __str__(self):
-        return self.full_name
+        return self.name
 
 
 class User(BaseModel):
-    full_name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     phone = models.IntegerField()
     email = models.EmailField()
     is_active = models.BooleanField(default=True)
@@ -48,7 +51,7 @@ class User(BaseModel):
     photo = models.ImageField(upload_to='user/', blank=True, null=True)
     order = models.ForeignKey('Cart', on_delete=models.CASCADE, related_name='user_order', null=True)
     wishlist_book = models.ManyToManyField('Book', related_name='ordered_book', blank=True)
-    wishlist_course = models.ManyToManyField('Course', related_name='ordered_course', blank=True)
+    wishlist_course = models.ManyToManyField(Course, related_name='ordered_course', blank=True)
 
     def __str__(self):
-        return self.full_name
+        return self.name

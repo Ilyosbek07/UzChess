@@ -33,7 +33,7 @@ class Comment(BaseModel):
     rating = models.DecimalField(max_digits=5, decimal_places=2)
 
     def __str__(self):
-        return f"Comment by {self.user.full_name}"
+        return f"Comment by {self.user.name}"
 
 
 class Course(BaseModel):
@@ -70,4 +70,24 @@ class Complaint(BaseModel):
     message = models.TextField()
 
     def __str__(self):
-        return f"Complaint by {self.user.full_name}"
+        return f"Complaint by {self.user.name}"
+
+
+class Book(BaseModel):
+    title = models.CharField(max_length=255)
+    author = models.CharField(max_length=255)
+    photo = models.ImageField(upload_to='course/')
+    degree_choices = [
+        ('beginner', 'Beginner'),
+        ('intermediate', 'Intermediate'),
+        ('advanced', 'Advanced'),
+    ]
+    degree = models.CharField(max_length=12, choices=degree_choices)
+    rating = models.DecimalField(max_digits=5, decimal_places=2)
+    price = models.DecimalField(decimal_places=2)
+    discount = models.IntegerField()
+    page_number = models.IntegerField()
+    produced_date = models.IntegerField(max_length=4)
+
+    def __str__(self):
+        return self.title
