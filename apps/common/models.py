@@ -37,3 +37,18 @@ class AboutUs(models.Model):
 
     def __str__(self):
         return self.full_name
+
+
+class User(BaseModel):
+    full_name = models.CharField(max_length=255)
+    phone = models.IntegerField()
+    email = models.EmailField()
+    is_active = models.BooleanField(default=True)
+    register_code = models.IntegerField()
+    photo = models.ImageField(upload_to='user/', blank=True, null=True)
+    order = models.ForeignKey('Cart', on_delete=models.CASCADE, related_name='user_order', null=True)
+    wishlist_book = models.ManyToManyField('Book', related_name='ordered_book', blank=True)
+    wishlist_course = models.ManyToManyField('Course', related_name='ordered_course', blank=True)
+
+    def __str__(self):
+        return self.full_name

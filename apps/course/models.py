@@ -1,6 +1,7 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 
+from apps.common.models import User
 from apps.main.models import BaseModel
 
 
@@ -27,12 +28,12 @@ class Video(BaseModel):
 
 
 class Comment(BaseModel):
-    user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='user_comment')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_comment')
     message = models.TextField()
     rating = models.DecimalField(max_digits=5, decimal_places=2)
 
     def __str__(self):
-        return f"Comment by {self.user.username}"
+        return f"Comment by {self.user.full_name}"
 
 
 class Course(BaseModel):
@@ -63,11 +64,10 @@ class Species(BaseModel):
 
 
 class Complaint(BaseModel):
-    user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='user_complaint')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_complaint')
     species = models.ForeignKey(Species, on_delete=models.CASCADE, related_name='species_complaint')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course_complaint')
     message = models.TextField()
 
     def __str__(self):
-        return f"Complaint by {self.user.username}"
-
+        return f"Complaint by {self.user.full_name}"
