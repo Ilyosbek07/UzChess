@@ -3,7 +3,8 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from phonenumber_field.modelfields import PhoneNumberField
 
-from apps.training.models import Course
+from apps.cart.models import Cart
+from apps.training.models import Course, Book
 
 
 class BaseModel(models.Model):
@@ -49,8 +50,8 @@ class User(BaseModel):
     is_active = models.BooleanField(default=True)
     register_code = models.IntegerField()
     photo = models.ImageField(upload_to='user/', blank=True, null=True)
-    order = models.ForeignKey('Cart', on_delete=models.CASCADE, related_name='user_order', null=True)
-    wishlist_book = models.ManyToManyField('Book', related_name='ordered_book', blank=True)
+    order = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='user_order', null=True)
+    wishlist_book = models.ManyToManyField(Book, related_name='ordered_book', blank=True)
     wishlist_course = models.ManyToManyField(Course, related_name='ordered_course', blank=True)
 
     def __str__(self):
